@@ -9,31 +9,14 @@ pipeline {
     }
 
     stages {
-        stage('Clone the Repo') {
-            steps {
-                echo 'Cloning the repository...'
-                deleteDir()
-                checkout([
-                    $class: 'GitSCM',
-                    branches: [[name: '*/feature']],
-                    userRemoteConfigs: [[
-                        url: 'git@github.com:thani2808/dan-p81.git',
-                        credentialsId: 'private-key-jenkins'
-                    ]]
-                ])
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
-                dir('P81') {
-                    script {
-                        if (!fileExists('Dockerfile')) {
-                            error "Dockerfile not found!"
-                        }
+                script {
+                    if (!fileExists('Dockerfile')) {
+                        error "Dockerfile not found!"
                     }
-                    bat "docker build -t ${IMAGE_NAME} ."
                 }
+                bat "docker build -t ${IMAGE_NAME} ."
             }
         }
 
