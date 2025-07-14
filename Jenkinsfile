@@ -1,11 +1,11 @@
-@Library('common-repository-new@feature') _
-import org.example.*
+@Library('common-lib-nginx@feature') _
+import org.commonlibnginx.*
 
 pipeline {
   agent any
 
   parameters {
-    string(name: 'REPO_NAME', defaultValue: 'dan-p81', description: 'Repository Name to checkout')
+    string(name: 'REPO_NAME', defaultValue: 'nginx-p81', description: 'Repository Name to checkout')
     string(name: 'REPO_BRANCH', defaultValue: 'feature', description: 'Branch to checkout')
     choice(name: 'ENV_STAGE', choices: ['dev', 'staging', 'prod'], description: 'Deployment Environment')
   }
